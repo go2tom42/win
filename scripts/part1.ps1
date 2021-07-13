@@ -1,3 +1,13 @@
+
+Remove-Item -Path "c:\BGinfo" -Force -Recurse
+
+New-Item -Path "c:\" -Name "WORK" -ItemType "directory"
+cd c:\WORK
+
+Invoke-WebRequest "https://github.com/go2tom42/win/raw/main/files/part1.zip" -OutFile "c:\WORK\part1.zip"
+Expand-Archive -Path part1.zip -DestinationPath "c:\WORK"
+
+
 Expand-Archive -Path skus-Windows-10.zip -DestinationPath $Env:windir\System32\spp\tokens\skus
 
 start-process -FilePath "cmd.exe" -ArgumentList "/c cscript %windir%\system32\slmgr.vbs /rilc" -Wait -Passthru -NoNewWindow
@@ -17,3 +27,4 @@ Set-LocalUser -name "tom42" -Password ([securestring]::new())
 Get-CimInstance -Class Win32_UserProfile | Where-Object { $_.LocalPath.split('\')[-1] -eq 'IEUSER' } | Remove-CimInstance
 Remove-LocalUser -Name “IEUSER”
 net user “IEUSER” /delete
+Restart-Computer
