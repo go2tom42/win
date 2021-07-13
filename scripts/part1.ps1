@@ -1,4 +1,3 @@
-
 Remove-Item -Path "c:\BGinfo" -Force -Recurse
 
 New-Item -Path "c:\" -Name "WORK" -ItemType "directory"
@@ -27,4 +26,5 @@ Set-LocalUser -name "tom42" -Password ([securestring]::new())
 Get-CimInstance -Class Win32_UserProfile | Where-Object { $_.LocalPath.split('\')[-1] -eq 'IEUSER' } | Remove-CimInstance
 Remove-LocalUser -Name “IEUSER”
 net user “IEUSER” /delete
+Start-Sleep -s 5
 Restart-Computer
