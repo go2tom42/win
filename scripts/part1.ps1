@@ -8,7 +8,7 @@ start-process -FilePath "cmd.exe" -ArgumentList "/c cscript %windir%\system32\sl
 start-process -FilePath "cmd.exe" -ArgumentList "/c sc config LicenseManager start= auto & net start LicenseManager" -Wait -Passthru -NoNewWindow
 start-process -FilePath "cmd.exe" -ArgumentList "/c sc config wuauserv start= auto & net start wuauserv" -Wait -Passthru -NoNewWindow
 start-process -FilePath "cmd.exe" -ArgumentList "/c clipup -v -o -altto c:\" -Wait -Passthru -NoNewWindow
-./HWID_Activation.cmd /u
+./dome.cmd /u
 
 New-LocalUser "tom42" -NoPassword -FullName "tom42" -Description "tom42 local admin"
 Add-LocalGroupMember -Group "Administrators" -Member "tom42"
