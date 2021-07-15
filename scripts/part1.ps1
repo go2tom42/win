@@ -42,8 +42,8 @@ function part1 {
     Set-LocalUser -name "tom42" -Password ([securestring]::new())
     
     Get-CimInstance -Class Win32_UserProfile | Where-Object { $_.LocalPath.split('\')[-1] -eq 'IEUSER' } | Remove-CimInstance
-    Remove-LocalUser -Name “IEUSER”
-    net user “IEUSER” /delete
+    Remove-LocalUser -Name "IEUSER"
+    net user "IEUSER" /delete
     Set-RunOnce '%systemroot%\System32\WindowsPowerShell\v1.0\powershell.exe -executionpolicy bypass -file c:\WORK\part2.ps1'
     pause
     #Start-Sleep -s 10
