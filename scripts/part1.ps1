@@ -1,3 +1,24 @@
+function Use-RunAs{
+    param([Switch]$Check)
+    $IsAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+    IF($Check) { return $IsAdmin }
+    IF($MyInvocation.ScriptName -ne ""){
+        IF(-not $IsAdmin){
+            TRY{
+                $arg = "-file `"$($MyInvocation.ScriptName)`""
+                Start-Process "$psHome\powershell.exe" -Verb Runas -ArgumentList $arg -ErrorAction 'stop'
+            }CATCH{
+                Write-Warning "Error - Failed RunAs Admin"
+                Break
+            }
+            Exit
+        }
+    }ELSE{
+        Write-Warning "Error - Not a PS1"
+        Break
+    }
+}
+Use-RunAs
 Remove-Item -Path "c:\BGinfo" -Force -Recurse
 
 New-Item -Path "c:\" -Name "WORK" -ItemType "directory"
