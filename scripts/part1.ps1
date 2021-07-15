@@ -1,4 +1,5 @@
 #Requires -RunAsAdministrator
+
 Remove-Item -Path "c:\BGinfo" -Force -Recurse
 
 New-Item -Path "c:\" -Name "WORK" -ItemType "directory"
