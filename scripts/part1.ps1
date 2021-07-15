@@ -1,3 +1,20 @@
+function Set-RunOnce {
+    [cmdletbinding()]
+    param
+    (
+    [string]$Command = '%systemroot%\System32\WindowsPowerShell\v1.0\powershell.exe -executionpolicy bypass -file c:\WORK\part3.ps1'
+    )
+
+    if (-not ((Get-Item -Path HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce).'Run' ))
+    {
+        New-ItemProperty -Path 'HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce' -Name 'Run' -Value $Command -PropertyType ExpandString
+    }
+    else
+    {
+        Set-ItemProperty -Path 'HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce' -Name 'Run' -Value $Command -PropertyType ExpandString
+    }
+}
+
 function part1 {
     Remove-Item -Path "c:\BGinfo" -Force -Recurse
 
@@ -27,10 +44,12 @@ function part1 {
     Get-CimInstance -Class Win32_UserProfile | Where-Object { $_.LocalPath.split('\')[-1] -eq 'IEUSER' } | Remove-CimInstance
     Remove-LocalUser -Name “IEUSER”
     net user “IEUSER” /delete
-    #Start-Sleep -s 60
-    #Set-RunOnce
+    Set-RunOnce '%systemroot%\System32\WindowsPowerShell\v1.0\powershell.exe -executionpolicy bypass -file c:\WORK\part2.ps1'
+    Start-Sleep -s 10
     Restart-Computer    
     
 }
 
-part1 
+part1
+
+
