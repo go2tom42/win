@@ -45,7 +45,8 @@ function part1 {
     Remove-LocalUser -Name “IEUSER”
     net user “IEUSER” /delete
     Set-RunOnce '%systemroot%\System32\WindowsPowerShell\v1.0\powershell.exe -executionpolicy bypass -file c:\WORK\part2.ps1'
-    Start-Sleep -s 10
+    pause
+    #Start-Sleep -s 10
     Restart-Computer    
     
 }
