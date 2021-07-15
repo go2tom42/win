@@ -4,7 +4,7 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
   Start-Process powershell -Verb runAs -ArgumentList $arguments
   Break
 }
-
+pause
 function part1 {
     Remove-Item -Path "c:\BGinfo" -Force -Recurse
 
